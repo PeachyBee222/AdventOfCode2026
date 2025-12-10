@@ -118,7 +118,7 @@ def do_operation(operator, column, first = False):
                       total_per_column[index] = str(total_per_column[index]) + str(number)
                 # if we looking at everything other than the first column
                 else:
-                    if index >= elem_length:
+                    if index >= (elem_length+temp_space-1):
                         break
                     # this number has a space delimter before using the spaces to calculate, offset by one
                     elif spaces == 1:
@@ -148,8 +148,11 @@ def do_operation(operator, column, first = False):
         product = 1
         for x in total_per_column:
         # Check if the item is a number (integer or float)
-            if isinstance(x, (int, float)):
-                product *= x
+          try:
+              num = int(x)
+              product *= num
+          except ValueError:
+              continue
         current_total += product
         print(f"Multiplication current total: {current_total}")
 
